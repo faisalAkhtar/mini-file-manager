@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>File Manager</title>
+<style>
+body{background-color:black;color:white;}
+</style>
+</head>
+
+<body>
+<button onclick="logOut()">LOG OUT</button>
+
+<br><hr><br>
+
+<ol></ol>
+
+<br><hr><br>
+
+<form onsubmit="return createFile(this);">
+    <input name="fileName" type="text" placeholder="Filename"><br><br>
+    <textarea name="fileCont" placeholder="Write something here..."></textarea><br><br>
+    <input type="submit" value="Save File">
+</form>
+
+<br><hr><br>
+
+<form onsubmit="return openFile(this.fileName0.value);">
+    <input name="fileName0" type="text" placeholder="Filename"><br><br>
+    <input type="submit" value="Open File">
+</form>
+
+<br><hr><br>
+
+<form onsubmit="return renameFile(this.fileName1.value, this.fileName2.value);">
+    <input name="fileName1" type="text" placeholder="FROM"><br><br>
+    <input name="fileName2" type="text" placeholder="TO"><br><br>
+    <input type="submit" value="Rename File">
+</form>
+
+<br><hr><br>
+
+<form onsubmit="return deleteFile(this.fileName3.value);">
+    <input name="fileName3" type="text" placeholder="Filename"><br><br>
+    <input type="submit" value="Delete File">
+</form>
+
+<script>
+window.onload = function() {
+	let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function () {
+		if (this.readyState != 4) return;
+
+        let data = JSON.parse(this.responseText);
+		if (this.status == 401) {
+            alert(data.message)
+            window.location.href = `${location.protocol}//${location.host}/`;
+		} else if (this.status == 200) {
+            init()
+		}
+		console.log(data)
+	};
+	xhr.open("GET", "/login", true);
+	xhr.send();
+}
+
+function logOut() {
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (this.readyState != 4) return;
+
+        let data = JSON.parse(this.responseText);
+        if (this.status == 200) {
+            alert(data.message)
+            window.location.href = `${location.protocol}//${location.host}/`;
+        }
+    };
+    xhr.open("PUT", "/login", true);
+    xhr.send();
+}
+
+function init() {
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (this.readyState != 4) return;
+
+        if (this.status == 200) {
+            let data = JSON.parse(this.responseText)
+            console.log(data)
+            data.forEach(elem => {
+                let li = document.createElement("li")
+                li.innerHTML = elem
+                document.querySelector("ol").append(li)
+            });
+        } else if(this.status == 401) {
+            console.log(this.responseText)
+            let data = JSON.parse(this.responseText)
+            alert(data.message)
+            window.location.href = `${location.protocol}//${location.host}/`;
+        }
+    };
+    xhr.open("GET", "/files", true);
+    xhr.send();
+}
+
+function createFile(form) {
+	let x = serializeObj(form)
+
+    let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function () {
+		if (this.readyState != 4) return;
+
+		if (this.status == 200) {
+			alert(this.responseText)
+            document.querySelector("input").value = ""
+            document.querySelector("textarea").value = ""
+		}
+	};
+	xhr.open("POST", "/files", true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify({
+		fileName: x.fileName,
+		fileCont: x.fileCont
+	}));
+
+    return false;
+}
+
+let agdvasd;
+
+function openFile(file) {
+    let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function () {
+		if (this.readyState != 4) return;
+
+		if (this.status == 200) {
+            document.querySelector("input").value = file
+            document.querySelector("textarea").value = this.responseText
+			console.log("Opened "+file+"!")
+		} else if(this.status == 404) {
+            document.querySelector("input").value = ""
+            document.querySelector("textarea").value = ""
+			alert(JSON.parse(this.responseText).message)
+        }
+	};
+	xhr.open("PUT", "/files", true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.setRequestHeader('x-action', 'open');
+	xhr.send(JSON.stringify({
+		fileName: file
+    }));
+
+    return false;
+}
+
+function renameFile(frm, to) {
+    let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function () {
+		if (this.readyState != 4) return;
+        alert(this.responseText)
+	};
+	xhr.open("PUT", "/files", true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.setRequestHeader('x-action', 'rename');
+	xhr.send(JSON.stringify({
+        frm: frm,
+        to : to
+    }));
+
+    return false;
+}
+
+function deleteFile(file) {
+    let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function () {
+		if (this.readyState != 4) return;
+        alert(this.responseText)
+	};
+	xhr.open("DELETE", "/files", true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify({
+		fileName: file
+    }));
+
+    return false;
+}
+
+var serializeObj = function (form) {
+	let obj = {};
+	Array.prototype.slice.call(form.elements).forEach(function (field) {
+		if (!field.name || field.disabled || ['file', 'reset', 'submit', 'button'].indexOf(field.type) > -1) return;
+		if (field.type === 'select-multiple') {
+			Array.prototype.slice.call(field.options).forEach(function (option) {
+				if (!option.selected) return;
+				obj[field.name] = option.value;
+			});
+			return;
+		}
+		if (['checkbox', 'radio'].indexOf(field.type) >-1 && !field.checked) return;
+		obj[field.name] = field.value;
+	});
+	return obj;
+};
+</script>
+</body>
+</html>
