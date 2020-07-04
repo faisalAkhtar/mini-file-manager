@@ -82,8 +82,8 @@ app.route('/files')
 })
 .post((req, res, next) => {
     if(!loggedIn) {
-        res.set({'Content-Type': 'application/json'})
-        res.status(401).json({"status" : -1, "message" : "Invalid User"})
+        res.set({'Content-Type': 'text/plain'})
+        res.status(401).json("Invalid User")
         return
     }
 
@@ -152,8 +152,8 @@ app.route('/files')
 })
 .delete((req, res, next) => {
     if(!loggedIn) {
-        res.set({'Content-Type': 'application/json'})
-        res.status(401).json({"status" : -1, "message" : "Invalid User"})
+        res.set({'Content-Type': 'text/plain'})
+        res.status(401).json("Invalid User")
         return
     }
 

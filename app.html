@@ -316,6 +316,9 @@ function openFile(file) {
 		} else if(this.status == 404) {
             activeFileElem.parentElement.remove()
 			alert(JSON.parse(this.responseText).message)
+        } else if (this.status == 401) {
+            alert(JSON.parse(this.responseText).message)
+            window.location.href = `${location.protocol}//${location.host}/`;
         }
 	};
 	xhr.open("PUT", "/files", true);
@@ -348,8 +351,10 @@ function saveFile(form) {
             p.innerHTML = x.fileName
             a.append(p)
             document.querySelector(".files").append(a)
-        } else if(this.status == 403) {
-		}
+		} else if (this.status == 401) {
+            alert(this.responseText)
+            window.location.href = `${location.protocol}//${location.host}/`;
+        }
 	};
 	xhr.open("POST", "/files", true);
 	xhr.setRequestHeader('Content-Type', 'application/json');
@@ -377,6 +382,9 @@ function renameFile(frm, to) {
                 document.querySelector(".fileRename").classList.remove("opened")
             }
             alert(data.message)
+        } else if (this.status == 401) {
+            alert(data.message)
+            window.location.href = `${location.protocol}//${location.host}/`;
         }
 	};
 	xhr.open("PUT", "/files", true);
@@ -395,10 +403,16 @@ function deleteFile(file) {
 	xhr.onreadystatechange = function () {
 		if (this.readyState != 4) return;
 
-        activeFileElem.parentElement.remove()
-        document.querySelector(".fileDelete").classList.remove("opened")
-        if (this.status == 400 || this.status == 404) {
+        if (this.status == 200) {
+            activeFileElem.parentElement.remove()
+            document.querySelector(".fileDelete").classList.remove("opened")
+        } else if (this.status == 400 || this.status == 404) {
+            activeFileElem.parentElement.remove()
+            document.querySelector(".fileDelete").classList.remove("opened")
             alert(this.responseText)
+        } else if (this.status == 401) {
+            alert(this.responseText)
+            window.location.href = `${location.protocol}//${location.host}/`;
         }
 	};
 	xhr.open("DELETE", "/files", true);
