@@ -7,8 +7,8 @@
 <meta content="Faisal Akhtar, Shubhangi Goyal" name="author">
 <title>File Manager</title>
 <style>
-@font-face{font-family:'Stalemate';src:url(Stalemate-Regular.ttf);}
-@font-face{font-family:'Montserrat';src:url(Montserrat-Regular.ttf);}
+@font-face{font-family:'Stalemate';src:url('static/Stalemate-Regular.ttf');}
+@font-face{font-family:'Montserrat';src:url('static/Montserrat-Regular.ttf');}
 ::-webkit-scrollbar{width:6px;height:6px;border-radius:6px 0 0 6px;}
 ::-webkit-scrollbar-thumb{background:#E83239;border-radius:6px 0 0 6px;}
 *{box-sizing:border-box;}
@@ -22,26 +22,25 @@ body{font-size:18px;font-family:'Montserrat',sans-serif;background-color:#202124
 main{width:100%;max-width:1024px;height:100vh;padding:10px;margin:0 auto;position:relative;}
 
 .filesDiv{border:5px solid #f5deb3;border-radius:5px;height:calc(100vh - 100px);width:100%;position:relative;}
-nav{width:100%;height:0;background-color:#f5deb3;color:#101114;overflow:hidden;transition-duration:0.25s;}
+nav{width:100%;height:0;background-color:#f5deb3;color:#101114;overflow:hidden;transform:translateY(-2px);transition-duration:0.25s;}
 nav>div{display:inline-block;width:calc(25% - 3.6px);text-align:center;height:80px;padding:5px;cursor:pointer;}
 .filesDiv a{width:calc(12.5% - 5px);height:80px;;padding:5px;margin:10px 0;display:inline-block;border-radius:5px;cursor:pointer;}
-.filesDiv a:hover,ul a:focus{background-color:#101114;}
+.filesDiv a:hover,ul a:focus,.file.active{background-color:#101114;}
 .filesDiv a:first-child{background-color:#f5deb3;color:#202124;}
 .filesDiv svg{height:40px;display:block;margin:5px auto;}
 .filesDiv p{margin:0;font-size:16px;line-height:1;text-align:center;word-break:break-all;}
 .files{overflow-x:hidden;overflow-y:auto;height:100%;padding:0 15px;transition-duration:0.25s;}
-.options nav{height:80px;}
-.options .files{height:calc(100% - 80px);}
+.filesDiv.options nav{height:80px;}
+.filesDiv.options .files{height:calc(100% - 80px);}
 
-section{position:absolute;top:0;left:0;height:100%;width:100%;transform:scale(0);}
-section.opened{transform:scale(1);}
+section{position:absolute;top:0;left:0;height:100%;width:100%;transform:scaleY(0);transition-duration:0.25s;}
+section.opened{transform:scaleY(1);}
 section input[type=submit]:focus,section button:focus{text-decoration:underline;}
 .fileEditor{background-color:#101114;}
 .fileEditor input[type=text],.fileEditor input[type=submit],.fileEditor button{display:inline;margin:15px 0;}
 .fileEditor input[type=text]{width:calc(100% - 440px);}
 .fileEditor input[type=submit],.fileEditor button{min-width:200px;margin-left:15px;}
 .fileEditor textarea{height:calc(100vh - 100px);resize:unset;margin:0;}
-.fileRename{background-color:#10111455;}
 .fileRename form,.fileDelete form{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:600px;width:90%;border-radius:5px;background-color:#101114;box-shadow:0 0 10px #7e3e3e;padding:0;}
 .fileRename input[type=text]{width:calc(100% - 30px);background-color:#101114;color:#f5deb3;border-bottom:1px solid #f5deb3;border-radius:0;}
 .fileRename input[type=text]:focus,.fileRename input[type=text]:hover{width:calc(100% - 30px);background-color:#202124;}
@@ -103,14 +102,14 @@ input[type=submit],button{width:200px;cursor:pointer;background-color:#f5deb3;}
         <a>M<span>ini</span> F<span>ile</span> S<span>ystem</span></a>
     </div>
 
-    <button class="logOut" onclick="logOut()">LOG OUT</button>
+    <button class="logOut">LOG OUT</button>
 
     <div class="filesDiv">
         <nav>
-            <div>Open</div>
-            <div>Rename</div>
-            <div>Delete</div>
-            <div>Details</div>
+            <div class="openDiv">Open</div>
+            <div class="renameDiv">Rename</div>
+            <div class="deleteDiv">Delete</div>
+            <div class="detailsDiv">Details</div>
         </nav>
 
         <div class="files">
@@ -124,10 +123,10 @@ input[type=submit],button{width:200px;cursor:pointer;background-color:#f5deb3;}
                         <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
                     </g>
                 </svg>
-                <p>Faisal.txt</p>
+                <p>NEW</p>
             </a>
 
-            <a>
+            <a class="file">
                 <svg version="1.1" viewBox="0 0 512 512">
                     <g>
                         <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
@@ -137,10 +136,10 @@ input[type=submit],button{width:200px;cursor:pointer;background-color:#f5deb3;}
                         <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
                     </g>
                 </svg>
-                <p>Faisal.txt</p>
+                <p>faisal.txt</p>
             </a>
 
-            <a>
+            <a class="file">
                 <svg version="1.1" viewBox="0 0 512 512">
                     <g>
                         <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
@@ -150,22 +149,10 @@ input[type=submit],button{width:200px;cursor:pointer;background-color:#f5deb3;}
                         <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
                     </g>
                 </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
+                <p>hello.txt</p>
             </a>
 
-            <a>
+            <a class="file">
                 <svg version="1.1" viewBox="0 0 512 512">
                     <g>
                         <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
@@ -175,715 +162,15 @@ input[type=submit],button{width:200px;cursor:pointer;background-color:#f5deb3;}
                         <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
                     </g>
                 </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
-            </a>
-
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>Faisal.txt</p>
+                <p>check.txt</p>
             </a>
         </div>
     </div>
 
     <section class="fileEditor">
-        <form onsubmit="return createFile(this);">
+        <form onsubmit="return saveFile(this);">
             <input name="fileName" type="text" placeholder="Filename">
-            <input type="submit" value="Save">
+            <input name="saveFileBtn" type="submit" value="Save">
             <button class="close">Cancel</button>
             <textarea name="fileCont" placeholder="Write something here..."></textarea>
         </form>
@@ -894,7 +181,7 @@ input[type=submit],button{width:200px;cursor:pointer;background-color:#f5deb3;}
             <a class="close">&times;</a>
             <input name="fileName1" type="hidden" placeholder="FROM">
             <input name="fileName2" type="text" placeholder="New name">
-            <input type="submit" value="Rename">
+            <input name="renameFileBtn" type="submit" value="Rename">
         </form>
     </section>
 
@@ -910,14 +197,14 @@ input[type=submit],button{width:200px;cursor:pointer;background-color:#f5deb3;}
                 </svg>
                 Delete Faisal.txt ?
             </p>
-            <input type="submit" value="Delete">
+            <input name="deleteFileBtn" type="submit" value="Delete">
         </form>
     </section>
 </main>
 <!--
 <br><hr><br>
 
-<form onsubmit="return createFile(this);">
+<form onsubmit="return saveFile(this);">
     <input name="fileName" type="text" placeholder="Filename">
     <textarea name="fileCont" placeholder="Write something here..."></textarea>
     <input type="submit" value="Save File">
@@ -946,7 +233,7 @@ input[type=submit],button{width:200px;cursor:pointer;background-color:#f5deb3;}
 </form>
 -->
 <script>
-/*window.onload = function() {
+window.onload = function() {
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function () {
 		if (this.readyState != 4) return;
@@ -962,9 +249,9 @@ input[type=submit],button{width:200px;cursor:pointer;background-color:#f5deb3;}
 	};
 	xhr.open("GET", "/login", true);
 	xhr.send();
-}*/
+}
 
-function logOut() {
+document.querySelector(".logOut").onclick = function() {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (this.readyState != 4) return;
@@ -980,6 +267,16 @@ function logOut() {
 }
 
 function init() {
+    document.querySelector(".files").innerHTML = ""
+
+    let a = document.createElement("a")
+    let svg = document.querySelector(".logo").cloneNode(true)
+    a.append(svg)
+    let p = document.createElement("p")
+    p.innerHTML = "NEW"
+    a.append(p)
+    document.querySelector(".files").append(a)
+
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (this.readyState != 4) return;
@@ -988,14 +285,17 @@ function init() {
             let data = JSON.parse(this.responseText)
             console.log(data)
             data.forEach(elem => {
-                let a = document.createElement("a")
-                let svg = document.querySelector(".logo").cloneNode(true)
+                a = document.createElement("a")
+                a.classList.add("file")
+                svg = document.querySelector(".logo").cloneNode(true)
                 a.append(svg)
-                let p = document.createElement("p")
+                p = document.createElement("p")
                 p.innerHTML = elem
                 a.append(p)
                 document.querySelector(".files").append(a)
             });
+
+            addListeners()
         } else if(this.status == 401) {
             console.log(this.responseText)
             let data = JSON.parse(this.responseText)
@@ -1007,30 +307,75 @@ function init() {
     xhr.send();
 }
 
-function createFile(form) {
-	let x = serializeObj(form)
+let activeFile = "", activeFileElem
 
-    let xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function () {
-		if (this.readyState != 4) return;
+function addListeners() {
+    document.querySelector(".files a").onclick = function() {
+        document.querySelector(".fileEditor").classList.add("opened")
+        document.querySelector("input[name=fileName]").focus()
+        document.querySelectorAll(".file").forEach(check => {
+            check.classList.remove("active")
+        })
+        document.querySelector(".filesDiv").classList.remove("options")
+    }
 
-		if (this.status == 200) {
-			alert(this.responseText)
-            document.querySelector("input").value = ""
+    document.querySelectorAll(".file").forEach(file => {
+        file.onclick = function() {
+            document.querySelectorAll(".file").forEach(check => {
+                if(check!=file) check.classList.remove("active")
+            })
+            if(file.classList.contains("active")) {
+                document.querySelector(".filesDiv").classList.remove("options")
+                file.classList.remove("active")
+            } else {
+                activeFile = file.lastElementChild.innerHTML
+                activeFileElem = file.lastElementChild
+                document.querySelector(".filesDiv").classList.add("options")
+                file.classList.add("active")
+            }
+        }
+    })
+
+    document.querySelectorAll(".close").forEach(close => {
+        close.onclick = function(e) {
+            e.preventDefault()
+            close.parentElement.parentElement.classList.remove("opened")
+            document.querySelector("input[name=fileName]").readOnly = false
+            document.querySelector("input[name=fileName]").value = ""
+            document.querySelector("input[name=fileName2]").value = ""
             document.querySelector("textarea").value = ""
-		}
-	};
-	xhr.open("POST", "/files", true);
-	xhr.setRequestHeader('Content-Type', 'application/json');
-	xhr.send(JSON.stringify({
-		fileName: x.fileName,
-		fileCont: x.fileCont
-	}));
+        }
+    })
 
-    return false;
+    document.querySelector(".openDiv").onclick = function() {
+        openFile(activeFile)
+    }
+
+    document.querySelector("input[name=saveFileBtn]").onclick = function(e) {
+        e.preventDefault()
+        saveFile(document.querySelector("input[name=saveFileBtn]").parentElement)
+    }
+
+    document.querySelector(".renameDiv").onclick = function() {
+        document.querySelector(".fileRename").classList.add("opened")
+        document.querySelector("input[name=fileName1]").value = activeFile
+    }
+
+    document.querySelector("input[name=renameFileBtn]").onclick = function(e) {
+        e.preventDefault()
+        renameFile(activeFile, document.querySelector("input[name=fileName2]").value)
+    }
+
+    document.querySelector(".deleteDiv").onclick = function() {
+        document.querySelector(".fileDelete").classList.add("opened")
+        document.querySelector("input[name=fileName3]").value = activeFile
+    }
+
+    document.querySelector("input[name=deleteFileBtn]").onclick = function(e) {
+        e.preventDefault()
+        deleteFile(activeFile)
+    }
 }
-
-let agdvasd;
 
 function openFile(file) {
     let xhr = new XMLHttpRequest();
@@ -1038,12 +383,14 @@ function openFile(file) {
 		if (this.readyState != 4) return;
 
 		if (this.status == 200) {
-            document.querySelector("input").value = file
+            document.querySelector(".fileEditor").classList.add("opened")
+            document.querySelector("input[name=fileName]").value = activeFile
+            document.querySelector("input[name=fileName]").readOnly = true
             document.querySelector("textarea").value = this.responseText
+            document.querySelector("textarea").focus()
 			console.log("Opened "+file+"!")
 		} else if(this.status == 404) {
-            document.querySelector("input").value = ""
-            document.querySelector("textarea").value = ""
+            activeFileElem.parentElement.remove()
 			alert(JSON.parse(this.responseText).message)
         }
 	};
@@ -1057,11 +404,56 @@ function openFile(file) {
     return false;
 }
 
+function saveFile(form) {
+	let x = serializeObj(form)
+
+    let xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function () {
+		if (this.readyState != 4) return;
+
+        document.querySelector(".fileEditor").classList.remove("opened")
+        document.querySelector("input[name=fileName]").readOnly = false
+        document.querySelector("input[name=fileName]").value = ""
+        document.querySelector("textarea").value = ""
+		if (this.status == 200) {
+            let a = document.createElement("a")
+            a.classList.add("file")
+            let svg = document.querySelector(".logo").cloneNode(true)
+            a.append(svg)
+            let p = document.createElement("p")
+            p.innerHTML = x.fileName
+            a.append(p)
+            document.querySelector(".files").append(a)
+        } else if(this.status == 403) {
+		}
+	};
+	xhr.open("POST", "/files", true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify({
+		fileName: x.fileName,
+		fileCont: x.fileCont
+	}));
+
+    return false;
+}
+
 function renameFile(frm, to) {
     let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function () {
 		if (this.readyState != 4) return;
-        alert(this.responseText)
+
+        let data = JSON.parse(this.responseText);
+        if(this.status == 200) {
+            document.querySelector(".fileRename").classList.remove("opened")
+            document.querySelector("input[name=fileName2]").value = ""
+            activeFileElem.innerHTML = to
+        } else if(this.status == 400 || this.status == 403 || this.status == 404) {
+            if(this.status == 404) {
+                activeFileElem.parentElement.remove()
+                document.querySelector(".fileRename").classList.remove("opened")
+            }
+            alert(data.message)
+        }
 	};
 	xhr.open("PUT", "/files", true);
 	xhr.setRequestHeader('Content-Type', 'application/json');
@@ -1078,7 +470,12 @@ function deleteFile(file) {
     let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function () {
 		if (this.readyState != 4) return;
-        alert(this.responseText)
+
+        activeFileElem.parentElement.remove()
+        document.querySelector(".fileDelete").classList.remove("opened")
+        if (this.status == 400 || this.status == 404) {
+            alert(this.responseText)
+        }
 	};
 	xhr.open("DELETE", "/files", true);
 	xhr.setRequestHeader('Content-Type', 'application/json');
