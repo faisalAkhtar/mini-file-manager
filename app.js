@@ -189,7 +189,7 @@ app.get('/app', (req, res, next) => {
 	res.sendFile(`${__dirname}/app.html`)
 })
 // static
-app.use('/static', express.static(`${__dirname}/public`));
+app.use('/static', express.static(`${__dirname}/static`));
 // Error 404
 app.get("*", function(req, res){
 	res.status(404).send("<h1>ERROR 404</h1>\n<p>File not found</p>");

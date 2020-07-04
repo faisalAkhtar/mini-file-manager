@@ -1,0 +1,27 @@
+@media screen and (max-width:1280px) {
+    .filesDiv a{width:calc(16.66% - 5px);}
+}
+@media screen and (max-width:768px) {
+    .logoDiv{height:60px;}
+    .logOut{margin:10px 0;padding:8px 12px;}
+    .logoDiv a{font-size:36px;}
+    .filesDiv{height:calc(100vh - 80px);}
+    .fileEditor input[type=text]{width:calc(100% - 340px);}
+    .logOut,.fileEditor input[type=submit],.fileEditor button{min-width:unset;width:150px;}
+}
+@media screen and (max-width:900px) and (orientation:landscape){
+    .logoDiv{height:unset;width:65px;margin-left:15px;}
+    .logoDiv a{display:block;width:40px;transform:unset;top:unset;text-align:center;}
+    .logoDiv a span{display:none;}
+    .logOut{width:80px;position:absolute;bottom:5px;right:5px;margin:5px 0;}
+    .filesDiv{height:100%;width:calc(100vw - 100px);float:left;}
+}
+@media screen and (max-width:600px) {
+    .logoDiv a span{display:none;}
+    .filesDiv a{width:calc(25% - 5px);}
+    .fileEditor input[type=text]{width:calc(100% - 220px);padding:12px 6px;}
+    .fileEditor input[type=submit],.fileEditor button{width:100px;margin-left:5px;}
+}
+@media screen and (max-width:400px) {
+    .filesDiv a{width:calc(33.33% - 5px);}
+}

@@ -6,85 +6,9 @@
 <meta content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" name="viewport">
 <meta content="Faisal Akhtar, Shubhangi Goyal" name="author">
 <title>File Manager</title>
-<style>
-@font-face{font-family:'Stalemate';src:url('static/Stalemate-Regular.ttf');}
-@font-face{font-family:'Montserrat';src:url('static/Montserrat-Regular.ttf');}
-::-webkit-scrollbar{width:6px;height:6px;border-radius:6px 0 0 6px;}
-::-webkit-scrollbar-thumb{background:#E83239;border-radius:6px 0 0 6px;}
-*{box-sizing:border-box;}
-body{font-size:18px;font-family:'Montserrat',sans-serif;background-color:#202124;color:#f5deb3;margin:0;}
-.logoDiv{height:75px;position:relative;cursor:pointer;display:inline-block;border-radius:5px;padding:10px;font-family:'Stalemate',sans-serif;}
-.logoDiv:hover{background-color:#101114;}
-.logo{height:100%;}
-.logoDiv a{display:inline-block;font-size:42px;position:relative;top:50%;transform:translateY(-66.67%);}
-.logOut{float:right;}
-
-main{width:100%;max-width:1024px;height:100vh;padding:10px;margin:0 auto;position:relative;}
-
-.filesDiv{border:5px solid #f5deb3;border-radius:5px;height:calc(100vh - 100px);width:100%;position:relative;}
-nav{width:100%;height:0;background-color:#f5deb3;color:#101114;overflow:hidden;transform:translateY(-2px);transition-duration:0.25s;}
-nav>div{display:inline-block;width:calc(25% - 3.6px);text-align:center;height:80px;padding:5px;cursor:pointer;}
-.filesDiv a{width:calc(12.5% - 5px);height:80px;;padding:5px;margin:10px 0;display:inline-block;border-radius:5px;cursor:pointer;}
-.filesDiv a:hover,ul a:focus,.file.active{background-color:#101114;}
-.filesDiv a:first-child{background-color:#f5deb3;color:#202124;}
-.filesDiv svg{height:40px;display:block;margin:5px auto;}
-.filesDiv p{margin:0;font-size:16px;line-height:1;text-align:center;word-break:break-all;}
-.files{overflow-x:hidden;overflow-y:auto;height:100%;padding:0 15px;transition-duration:0.25s;}
-.filesDiv.options nav{height:80px;}
-.filesDiv.options .files{height:calc(100% - 80px);}
-
-section{position:absolute;top:0;left:0;height:100%;width:100%;transform:scaleY(0);transition-duration:0.25s;}
-section.opened{transform:scaleY(1);}
-section input[type=submit]:focus,section button:focus{text-decoration:underline;}
-.fileEditor{background-color:#101114;}
-.fileEditor input[type=text],.fileEditor input[type=submit],.fileEditor button{display:inline;margin:15px 0;}
-.fileEditor input[type=text]{width:calc(100% - 440px);}
-.fileEditor input[type=submit],.fileEditor button{min-width:200px;margin-left:15px;}
-.fileEditor textarea{height:calc(100vh - 100px);resize:unset;margin:0;}
-.fileRename form,.fileDelete form{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:600px;width:90%;border-radius:5px;background-color:#101114;box-shadow:0 0 10px #7e3e3e;padding:0;}
-.fileRename input[type=text]{width:calc(100% - 30px);background-color:#101114;color:#f5deb3;border-bottom:1px solid #f5deb3;border-radius:0;}
-.fileRename input[type=text]:focus,.fileRename input[type=text]:hover{width:calc(100% - 30px);background-color:#202124;}
-.fileRename a.close,.fileDelete a.close{font-size:36px;line-height:1;font-weight:bold;margin:8px 15px;float:right;cursor:pointer;}
-.fileRename input[type=submit],.fileDelete input[type=submit]{width:100%;margin:30px 0 0 0;border-radius:0 0 5px 5px;}
-.fileRename input[type=submit]{background-color:#0D761D;color:#f5deb3;}
-.fileDelete svg{height:48px;transform:translateY(15px);margin-right:10px;}
-.fileDelete p{margin-left:15px;margin-right:15px;}
-.fileDelete input[type=submit]{background-color:#ec3f46;color:#f5deb3;}
-
-form{padding:8px 15px;}
-input,textarea,button{font-size:100%;font-family:Montserrat,sans-serif;background-color:#d5be93;color:#202124;border-radius:5px;border:none;outline:none;padding:12px;display:block;margin:18px auto;width:100%;font-weight:bold;}
-input:read-only{background-color:#d5be93 !important;}
-input:focus,textarea:focus{background-color:#f5deb3;}
-input[type=submit],button{width:200px;cursor:pointer;background-color:#f5deb3;}
-
-@media screen and (max-width:1280px) {
-    .filesDiv a{width:calc(16.66% - 5px);}
-}
-@media screen and (max-width:768px) {
-    .logoDiv{height:60px;}
-    .logOut{margin:10px 0;padding:8px 12px;}
-    .logoDiv a{font-size:36px;}
-    .filesDiv{height:calc(100vh - 80px);}
-    .fileEditor input[type=text]{width:calc(100% - 340px);}
-    .logOut,.fileEditor input[type=submit],.fileEditor button{min-width:unset;width:150px;}
-}
-@media screen and (max-width:900px) and (orientation:landscape){
-    .logoDiv{height:unset;width:65px;margin-left:15px;}
-    .logoDiv a{display:block;width:40px;transform:unset;top:unset;text-align:center;}
-    .logoDiv a span{display:none;}
-    .logOut{width:80px;position:absolute;bottom:5px;right:5px;margin:5px 0;}
-    .filesDiv{height:100%;width:calc(100vw - 100px);float:left;}
-}
-@media screen and (max-width:600px) {
-    .logoDiv a span{display:none;}
-    .filesDiv a{width:calc(25% - 5px);}
-    .fileEditor input[type=text]{width:calc(100% - 220px);padding:12px 6px;}
-    .fileEditor input[type=submit],.fileEditor button{width:100px;margin-left:5px;}
-}
-@media screen and (max-width:400px) {
-    .filesDiv a{width:calc(33.33% - 5px);}
-}
-</style>
+<link rel="stylesheet" type="text/css" href="static/basic.css">
+<link rel="stylesheet" type="text/css" href="static/app.css">
+<link rel="stylesheet" type="text/css" href="static/app.min.css">
 </head>
 
 <body>
