@@ -3,10 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta content="yes" name="apple-mobile-web-app-capable">
-<link rel="apple-touch-icon" sizes="120x120" href="/assets/apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" sizes="152x152" href="/assets/apple-touch-icon-152x152.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-<link rel="shortcut icon" href="/assets/favicon.ico">
 <meta content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" name="viewport">
 <meta content="Faisal Akhtar, Shubhangi Goyal" name="author">
 <title>File Manager</title>
@@ -37,7 +33,7 @@
             <div class="openDiv">Open</div>
             <div class="renameDiv">Rename</div>
             <div class="deleteDiv">Delete</div>
-            <div class="detailsDiv">Details</div>
+            <div class="detailsDiv">Info</div>
         </nav>
 
         <div class="files">
@@ -123,7 +119,7 @@
                         <path d="M14.4242327,6.14839275 C15.2942987,4.74072976 16.707028,4.74408442 17.5750205,6.14839275 L28.3601099,23.59738 C29.5216388,25.4765951 28.6755462,27 26.4714068,27 L5.5278464,27 C3.32321557,27 2.47386317,25.4826642 3.63914331,23.59738 Z M16,20 C16.5522847,20 17,19.5469637 17,19.0029699 L17,12.9970301 C17,12.4463856 16.5561352,12 16,12 C15.4477153,12 15,12.4530363 15,12.9970301 L15,19.0029699 C15,19.5536144 15.4438648,20 16,20 Z M16,24 C16.5522848,24 17,23.5522848 17,23 C17,22.4477152 16.5522848,22 16,22 C15.4477152,22 15,22.4477152 15,23 C15,23.5522848 15.4477152,24 16,24 Z M16,24" id="Triangle 29"/>
                     </g>
                 </svg>
-                Delete Faisal.txt ?
+                Delete <span id="activeFile"></span> ?
             </p>
             <input name="deleteFileBtn" type="submit" value="Delete">
         </form>
@@ -245,6 +241,11 @@ function addListeners() {
             check.classList.remove("active")
         })
         document.querySelector(".filesDiv").classList.remove("options")
+        document.querySelector("textarea").value = ""
+        document.querySelector("input[name=fileName]").readOnly = false
+        setTimeout(() => {
+            document.querySelector("input[name=fileName]").value = ""
+        }, 10);
     }
 
     document.querySelectorAll(".file").forEach(file => {
@@ -295,14 +296,68 @@ function addListeners() {
     }
 
     document.querySelector(".deleteDiv").onclick = function() {
-        document.querySelector(".fileDelete").classList.add("opened")
+        document.querySelector("#activeFile").innerHTML = activeFile
         document.querySelector("input[name=fileName3]").value = activeFile
+        document.querySelector(".fileDelete").classList.add("opened")
     }
 
     document.querySelector("input[name=deleteFileBtn]").onclick = function(e) {
         e.preventDefault()
         deleteFile(activeFile)
     }
+
+    document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27) {
+            let flag = false
+            document.querySelectorAll("section").forEach(section=> {
+                if(section.classList.contains("opened")) {
+                    flag = true
+                    section.classList.remove("opened")
+                }
+            })
+            if(!flag &&  document.querySelector(".filesDiv").classList.contains("options")) {
+                document.querySelectorAll(".file").forEach(check => {
+                    check.classList.remove("active")
+                })
+                document.querySelector(".filesDiv").classList.remove("options")
+            }
+        }
+
+        if(document.querySelector(".fileEditor").classList.contains("opened")) {
+            if (evt.keyCode == 83 && evt.shiftKey) alert("Shift + S");
+        } else if(document.querySelector(".filesDiv").classList.contains("options")) {
+            // Delete File
+            if (evt.keyCode == 46 && evt.shiftKey) {
+                document.querySelector(".deleteDiv").click();
+            }
+
+            // File Info
+            if (evt.keyCode == 73 && evt.shiftKey) {
+                document.querySelector(".detailsDiv").click();
+            }
+
+            // Open File
+            if (evt.keyCode == 79 && evt.shiftKey) {
+                document.querySelector(".openDiv").click();
+            }
+
+            // Rename File
+            if (evt.keyCode == 82 && evt.shiftKey) {
+                document.querySelector(".renameDiv").click();
+            }
+
+            // New File
+            if (evt.keyCode == 78 && evt.shiftKey) {
+                document.querySelector(".files a").click();
+            }
+        } else {
+            // New File
+            if (evt.keyCode == 78 && evt.shiftKey) {
+                document.querySelector(".files a").click();
+            }
+        }
+    };
 }
 
 function openFile(file) {
