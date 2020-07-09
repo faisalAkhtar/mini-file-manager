@@ -3,12 +3,51 @@
 <head>
 <meta charset="utf-8">
 <meta content="yes" name="apple-mobile-web-app-capable">
+<link rel="apple-touch-icon" sizes="120x120" href="assets/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="assets/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+<link rel="shortcut icon" href="assets/favicon.ico">
 <meta content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" name="viewport">
 <meta content="Faisal Akhtar, Shubhangi Goyal" name="author">
 <title>File Manager</title>
 <link rel="stylesheet" type="text/css" href="static/basic.css">
 <link rel="stylesheet" type="text/css" href="static/app.css">
 <link rel="stylesheet" type="text/css" href="static/app.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap');
+.welcome{position:absolute;top:0;left:50%;transform:translateX(-50%);padding:0;overflow:hidden;transition-duration:0.2s;background-color:#202124;border:1px solid black;border-radius:5px;background-color:#2c2c2c;}
+.welcome.hidden{left:-100%;transform:none;}
+.welcome a.close{background-color:#DF4A16;line-height:24px;border-radius:50%;padding:1px 2px;font-weight:normal;}
+.welcome .welcome-head{position:absolute;left:50%;transform:translateX(-50%);margin:8px;line-height:26px;font-weight:bold;}
+.welcome .welcome-content{margin-top:42px;padding:20px;height:calc(100% - 42px);background-color:#1F252A;text-align:center;overflow-x:hidden;overflow-y:auto;}
+.welcome-content a{color:inherit;}
+.shortcut-keys{margin-top:10vh;}
+.shortcut-keys h2{text-decoration:underline;text-underline-position:under;}
+.welcome-content .row{width:66.67%;margin:0 auto;clear:both;overflow:hidden;}
+.welcome-content .td{width:calc(50% - 2.5vw);padding:5px 0;float:left;}
+.welcome-content .td:nth-child(odd){text-align:right;margin-right:2.5vw;}
+.welcome-content .td:nth-child(even){text-align:left;margin-left:2.5vw;}
+code{font-family:'Cutive Mono',monospace;background-color:#ffffff20;padding:0 5px;border-radius:2px;}
+.web{font-size:2em;margin-top:20px;}
+.web i{color:#fff;border-radius:5px;cursor:pointer;display:inline-block;font-size:1rem;height:2rem;line-height:2rem;position:relative;text-align:center;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:2rem;margin:0 5px 10px;transition-duration:0.2s;}
+.web i:hover{font-size:1.25rem;}
+.fa-github{background-color:#333333}
+.fa-github:hover{background-color:transparent;color:#ffffff;}
+.fa-linkedin-in{background-color:#0e76a8}
+.fa-linkedin-in:hover{background-color:transparent;color:#0e76a8;}
+.fa-facebook-f{background-color:#3b5998}
+.fa-facebook-f:hover{background-color:transparent;color:#3b5998;}
+.fa-instagram{background-color:#f2003c}
+.fa-instagram:hover{background-color:transparent;color:#f2003c;}
+.fa-twitter{background-color:#00acee}
+.fa-twitter:hover{background-color:transparent;color:#00acee;}
+@media screen and (max-width:768px) {
+    .welcome-content .row{width:100%;}
+}
+@media screen and (max-width:600px) {
+}
+</style>
 </head>
 
 <body>
@@ -125,6 +164,45 @@
         </form>
     </section>
 </main>
+
+<main class="welcome hidden">
+    <p class="welcome-head">Welcome</p>
+    <a class="close">&times;</a>
+    <div class="welcome-content">
+        <h2 style="font-weight:normal;">Mini File System</h2>
+        <p>Version 1.0.1</p>
+        <br>
+        <p>Made with &hearts; by <a href="https://faisalakhtar.github.io/" target="_blank">Faisal</a></p>
+		<div class="web">
+			<a href="https://github.com/faisalAkhtar/" target="_blank"><i class="fab fa-github"></i></a>
+			<a href="https://www.linkedin.com/in/faisallakhtarr/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+			<a href="https://www.instagram.com/faisallakhtarr/" target="_blank"><i class="fab fa-instagram"></i></a>
+			<a href="https://twitter.com/faisallakhtarr/" target="_blank"><i class="fab fa-twitter"></i></a>
+			<a href="https://www.facebook.com/faisallakhtarr/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+		</div>
+        <div class="shortcut-keys">
+            <h2>Shortcut Keys</h2>
+            <div class="row">
+                <div class="td">Open help</div>
+                <div class="td"><code>Shift + H</code></div>
+                <div class="td">Create a new file</div>
+                <div class="td"><code>Shift + N</code></div>
+            </div>
+            <div class="row">
+                <div class="td">Open selected file</div>
+                <div class="td"><code>Shift + O</code></div>
+                <div class="td">Rename selected file</div>
+                <div class="td"><code>Shift + R</code></div>
+            </div>
+            <div class="row">
+                <div class="td">Delete selected file</div>
+                <div class="td"><code>Shift + del</code></div>
+                <div class="td">Info of selected file</div>
+                <div class="td"><code>Shift + I</code></div>
+            </div>
+        </div>
+    </div>
+</main>
 <!--
 <br><hr><br>
 
@@ -229,11 +307,34 @@ function init() {
     };
     xhr.open("GET", "/files", true);
     xhr.send();
+
+    const queryParameters = ( params ) => {
+        let href = location.href;
+        let reg = new RegExp( '[?&]' + params + '=([^&#]*)', 'i' );
+        let queryString = reg.exec(href);
+        return queryString ? queryString[1] : null;
+    };
+
+    if(queryParameters('welcome')=='true') {
+        document.querySelector(".welcome").classList.remove("hidden")
+    }
 }
 
 let activeFile = "", activeFileElem
 
 function addListeners() {
+    setTimeout(() => {
+        document.querySelector(".welcome a.close").onclick = function(){
+            this.parentElement.classList.add("hidden")
+            window.history.pushState({},"","?")
+        }
+    }, 100);
+
+    document.querySelector(".logoDiv").onclick = function() {
+        document.querySelector(".welcome").classList.remove("hidden")
+        window.history.pushState({},"","?welcome=true")
+    }
+
     document.querySelector(".files a").onclick = function() {
         document.querySelector(".fileEditor").classList.add("opened")
         document.querySelector("input[name=fileName]").focus()
@@ -309,55 +410,67 @@ function addListeners() {
     document.onkeydown = function(evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
-            let flag = false
-            document.querySelectorAll("section").forEach(section=> {
-                if(section.classList.contains("opened")) {
-                    flag = true
-                    section.classList.remove("opened")
-                }
-            })
-            if(!flag &&  document.querySelector(".filesDiv").classList.contains("options")) {
-                document.querySelectorAll(".file").forEach(check => {
-                    check.classList.remove("active")
+            if(!document.querySelector(".welcome").classList.contains("hidden")) {
+                document.querySelector(".welcome").classList.add("hidden")
+                window.history.pushState({},"","?")
+            } else {
+                let flag = false
+                document.querySelectorAll("section").forEach(section=> {
+                    if(section.classList.contains("opened")) {
+                        flag = true
+                        section.classList.remove("opened")
+                    }
                 })
-                document.querySelector(".filesDiv").classList.remove("options")
+                if(!flag &&  document.querySelector(".filesDiv").classList.contains("options")) {
+                    document.querySelectorAll(".file").forEach(check => {
+                        check.classList.remove("active")
+                    })
+                    document.querySelector(".filesDiv").classList.remove("options")
+                }
             }
         }
 
-        if(document.querySelector(".fileEditor").classList.contains("opened")) {
-            if (evt.keyCode == 83 && evt.shiftKey) alert("Shift + S");
-        } else if(document.querySelector(".filesDiv").classList.contains("options")) {
-            // Delete File
-            if (evt.keyCode == 46 && evt.shiftKey) {
-                document.querySelector(".deleteDiv").click();
-            }
+        // Delete File
+        if (evt.keyCode == 72 && evt.shiftKey) {
+            document.querySelector(".logoDiv").click();
+        }
 
-            // File Info
-            if (evt.keyCode == 73 && evt.shiftKey) {
-                document.querySelector(".detailsDiv").click();
-            }
+        if(document.querySelector(".welcome").classList.contains("hidden")) {
+            if(document.querySelector(".fileEditor").classList.contains("opened")) {
+                if (evt.keyCode == 83 && evt.shiftKey) alert("Shift + S");
+            } else if(document.querySelector(".filesDiv").classList.contains("options")) {
+                // Delete File
+                if (evt.keyCode == 46 && evt.shiftKey) {
+                    document.querySelector(".deleteDiv").click();
+                }
 
-            // Open File
-            if (evt.keyCode == 79 && evt.shiftKey) {
-                document.querySelector(".openDiv").click();
-            }
+                // File Info
+                if (evt.keyCode == 73 && evt.shiftKey) {
+                    document.querySelector(".detailsDiv").click();
+                }
 
-            // Rename File
-            if (evt.keyCode == 82 && evt.shiftKey) {
-                document.querySelector(".renameDiv").click();
-            }
+                // Open File
+                if (evt.keyCode == 79 && evt.shiftKey) {
+                    document.querySelector(".openDiv").click();
+                }
 
-            // New File
-            if (evt.keyCode == 78 && evt.shiftKey) {
-                document.querySelector(".files a").click();
-            }
-        } else {
-            // New File
-            if (evt.keyCode == 78 && evt.shiftKey) {
-                document.querySelector(".files a").click();
+                // Rename File
+                if (evt.keyCode == 82 && evt.shiftKey) {
+                    document.querySelector(".renameDiv").click();
+                }
+
+                // New File
+                if (evt.keyCode == 78 && evt.shiftKey) {
+                    document.querySelector(".files a").click();
+                }
+            } else {
+                // New File
+                if (evt.keyCode == 78 && evt.shiftKey) {
+                    document.querySelector(".files a").click();
+                }
             }
         }
-    };
+    }
 }
 
 function openFile(file) {
