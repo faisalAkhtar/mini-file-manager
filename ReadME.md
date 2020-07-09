@@ -1,4 +1,4 @@
-<img src="assets/logo-large.png" alt="logo" width="125">
+<img src="static/logo/logo-large.png" alt="logo" width="125">
 
 # Mini File Management System
 
