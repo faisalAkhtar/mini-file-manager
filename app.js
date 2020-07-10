@@ -93,11 +93,11 @@ app.route('/files')
         } else {
             res.set({'Content-Type': 'text/plain'})
             if(myFiles.indexOf(req.body.fileName) > -1) {
-                res.status(403).json(req.body.to + " saved successfully!")
+                res.status(200).json(req.body.fileName + " saved successfully!")
                 console.log(req.body.fileName + " saved successfully!")
             } else {
                 myFiles.push(req.body.fileName);
-                res.status(200).send("File created successfully!");
+                res.status(201).send("File created successfully!");
                 console.log(req.body.fileName + " created!")
             }
         }
