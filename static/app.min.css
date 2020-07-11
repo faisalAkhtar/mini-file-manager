@@ -6,6 +6,7 @@
     .logoDiv{height:60px;}
     .logOut{margin:10px 0;padding:8px 12px;}
     .logoDiv a{font-size:36px;}
+    .welcome-content .row{width:100%;}
     .filesDiv{height:calc(100vh - 80px);}
     .fileEditor input[type=text]{width:calc(100% - 340px);}
     .fileEditor input[type=text],.fileEditor input[type=submit],.fileEditor button{margin:10px 0;}

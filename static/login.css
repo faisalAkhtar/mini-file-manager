@@ -4,3 +4,4 @@ p{text-align:right;}
 form{border:5px solid #f5deb3;padding:8px 15px;border-radius:5px;}
 input{font-size:100%;font-family:'Montserrat',sans-serif;background-color:#f5deb3;color:#202124;border-radius:5px;border:none;outline:none;padding:12px;display:block;margin:18px auto;width:100%;font-weight:bold;}
 input[type=submit]{width:200px;cursor:pointer;}
+a{color:inherit;text-underline-position:under;cursor:pointer;}
