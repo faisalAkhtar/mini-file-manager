@@ -147,6 +147,22 @@ app.route('/files')
                 console.log(req.body.frm + " renamed to " + req.body.to)
             });
         }
+    } else if(req.get('x-action')=="details") {
+        fs.stat("./files/admin/"+req.body.fileName, (err, stats)=>{
+            if(err==null) {
+                res.set({'Content-Type': 'application/json'})
+                res.status(200).json(stats)
+                console.log(req.body.fileName + " details sent!")
+            } else {
+                res.set({'Content-Type': 'application/json'})
+                if(err.errno==-2) {
+                    res.status(404).json(err)
+                } else {
+                    res.status(400).json(err)
+                }
+                console.log(err)
+            }
+        })
     }
 
 })
