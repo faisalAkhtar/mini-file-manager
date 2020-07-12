@@ -25,7 +25,6 @@ function formHandler(form) {
 		if (this.status == 200) {
 			let data = JSON.parse(this.responseText);
 			if(data.status==1) {
-				alert(data.message)
 				window.location.href = `${location.protocol}//${location.host}/app?welcome=true`;
 			} else {
 				alert(data.message)

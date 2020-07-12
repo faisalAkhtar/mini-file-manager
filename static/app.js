@@ -207,6 +207,7 @@ function addListeners() {
     document.querySelector(".renameDiv").onclick = function() {
         document.querySelector(".fileRename").classList.add("opened")
         document.querySelector("input[name=fileName1]").value = activeFile
+        document.querySelector("input[name=fileName2]").focus()
     }
 
     document.querySelector("input[name=renameFileBtn]").onclick = function(e) {
@@ -459,9 +460,6 @@ function fileDetails(file) {
             alert(data.message)
             window.location.href = `${location.protocol}//${location.host}/`;
 		} else if (this.status == 200) {
-            activeFileElem.parentElement.classList.remove("active")
-            document.querySelector(".filesDiv").classList.remove("options")
-
             document.querySelector("#fileDetailsName").innerHTML = file
             document.querySelector("#fileDetailsSize").innerHTML = data.size + " bytes"
             document.querySelector("#fileDetailsCreated").innerHTML = formatDate(data.birthtime)
