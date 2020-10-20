@@ -24,7 +24,7 @@ function formHandler(form) {
 
 		if (this.status == 200) {
 			let data = JSON.parse(this.responseText);
-			if(data.status==1) {
+			if (data.status == 1) {
 				window.location.href = `${location.protocol}//${location.host}/app?welcome=true`;
 			} else {
 				alert(data.message)
@@ -54,7 +54,7 @@ var serializeObj = function (form) {
 			});
 			return;
 		}
-		if (['checkbox', 'radio'].indexOf(field.type) >-1 && !field.checked) return;
+		if (['checkbox', 'radio'].indexOf(field.type) > -1 && !field.checked) return;
 		obj[field.name] = field.value;
 	});
 	return obj;

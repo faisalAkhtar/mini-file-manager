@@ -1,7 +1,37 @@
-@font-face{font-family:'Montserrat';src:url('Montserrat-Regular.ttf');}
-@font-face{font-family:'Stalemate';src:url('Stalemate-Regular.ttf');}
-@font-face{font-family:'CutiveMono';src:url('CutiveMono-Regular.ttf');}
-::-webkit-scrollbar{width:6px;height:6px;border-radius:6px 0 0 6px;}
-::-webkit-scrollbar-thumb{background:#E83239;border-radius:6px 0 0 6px;}
-*{box-sizing:border-box;}
-body{font-size:18px;font-family:'Montserrat',sans-serif;background-color:#202124;color:#f5deb3;margin:0;}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Stalemate';
+    src: url('Stalemate-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'CutiveMono';
+    src: url('CutiveMono-Regular.ttf');
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    border-radius: 6px 0 0 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #E83239;
+    border-radius: 6px 0 0 6px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #202124;
+    color: #f5deb3;
+    margin: 0;
+}
