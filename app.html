@@ -1,193 +1,224 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta content="yes" name="apple-mobile-web-app-capable">
-<link rel="apple-touch-icon" sizes="120x120" href="static/logo/apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" sizes="152x152" href="static/logo/apple-touch-icon-152x152.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="static/logo/favicon-32x32.png">
-<link rel="shortcut icon" href="static/logo/favicon.ico">
-<meta content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" name="viewport">
-<meta content="Faisal Akhtar, Shubhangi Goyal" name="author">
-<title>File Manager</title>
-<link rel="stylesheet" type="text/css" href="static/basic.css">
-<link rel="stylesheet" type="text/css" href="static/app.css">
-<link rel="stylesheet" type="text/css" href="static/app.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
+    <meta charset="utf-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <link rel="apple-touch-icon" sizes="120x120" href="static/logo/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="static/logo/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="static/logo/favicon-32x32.png">
+    <link rel="shortcut icon" href="static/logo/favicon.ico">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="Faisal Akhtar, Shubhangi Goyal" name="author">
+    <title>File Manager</title>
+    <link rel="stylesheet" type="text/css" href="static/basic.css">
+    <link rel="stylesheet" type="text/css" href="static/app.css">
+    <link rel="stylesheet" type="text/css" href="static/app.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
 </head>
 
 <body>
-<main>
-    <div class="logoDiv">
-        <svg class="logo" version="1.1" viewBox="0 0 512 512">
-            <g>
-                <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-            </g>
-        </svg>
-        <a>M<span>ini</span> F<span>ile</span> S<span>ystem</span></a>
-    </div>
-
-    <button class="logOut">LOG OUT</button>
-
-    <div class="filesDiv">
-        <nav>
-            <div class="openDiv"><i class="far fa-edit"></i> Open</div>
-            <div class="renameDiv"><i class="fas fa-pencil-alt"></i> Rename</div>
-            <div class="deleteDiv"><i class="far fa-trash-alt"></i> Delete</div>
-            <div class="detailsDiv"><i class="fas fa-info"></i> Info</div>
-        </nav>
-
-        <div class="files">
-            <a>
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>NEW</p>
-            </a>
-
-            <a class="file">
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>faisal.txt</p>
-            </a>
-
-            <a class="file">
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>hello.txt</p>
-            </a>
-
-            <a class="file">
-                <svg version="1.1" viewBox="0 0 512 512">
-                    <g>
-                        <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
-                        <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
-                        <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
-                        <path fill="currentColor" d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z"></path>
-                    </g>
-                </svg>
-                <p>check.txt</p>
-            </a>
+    <main>
+        <div class="logoDiv">
+            <svg class="logo" version="1.1" viewBox="0 0 512 512">
+                <g>
+                    <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
+                    <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
+                    <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
+                    <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
+                    <path fill="currentColor"
+                        d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z">
+                    </path>
+                </g>
+            </svg>
+            <a>M<span>ini</span> F<span>ile</span> S<span>ystem</span></a>
         </div>
-    </div>
 
-    <section class="fileEditor">
-        <form onsubmit="return saveFile(this);">
-            <input name="fileName" type="text" placeholder="Filename">
-            <input name="saveFileBtn" type="submit" value="Save">
-            <button class="close">Cancel</button>
-            <textarea name="fileCont" placeholder="Write something here..."></textarea>
-        </form>
-    </section>
+        <button class="logOut">LOG OUT</button>
 
-    <section class="fileRename">
-        <form onsubmit="return renameFile(this.fileName1.value, this.fileName2.value);">
-            <a class="close">&times;</a>
-            <input name="fileName1" type="hidden" placeholder="FROM">
-            <input name="fileName2" type="text" placeholder="New name">
-            <input name="renameFileBtn" type="submit" value="Rename">
-        </form>
-    </section>
+        <div class="filesDiv">
+            <nav>
+                <div class="openDiv"><i class="far fa-edit"></i> Open</div>
+                <div class="renameDiv"><i class="fas fa-pencil-alt"></i> Rename</div>
+                <div class="deleteDiv"><i class="far fa-trash-alt"></i> Delete</div>
+                <div class="detailsDiv"><i class="fas fa-info"></i> Info</div>
+            </nav>
 
-    <section class="fileDelete">
-        <form onsubmit="return deleteFile(this.fileName3.value);">
-            <a class="close">&times;</a>
-            <input name="fileName3" type="hidden" placeholder="Filename">
-            <p>
-                <svg version="1.1" viewBox="0 0 32 32">
-                    <g fill="currentColor">
-                        <path d="M14.4242327,6.14839275 C15.2942987,4.74072976 16.707028,4.74408442 17.5750205,6.14839275 L28.3601099,23.59738 C29.5216388,25.4765951 28.6755462,27 26.4714068,27 L5.5278464,27 C3.32321557,27 2.47386317,25.4826642 3.63914331,23.59738 Z M16,20 C16.5522847,20 17,19.5469637 17,19.0029699 L17,12.9970301 C17,12.4463856 16.5561352,12 16,12 C15.4477153,12 15,12.4530363 15,12.9970301 L15,19.0029699 C15,19.5536144 15.4438648,20 16,20 Z M16,24 C16.5522848,24 17,23.5522848 17,23 C17,22.4477152 16.5522848,22 16,22 C15.4477152,22 15,22.4477152 15,23 C15,23.5522848 15.4477152,24 16,24 Z M16,24" id="Triangle 29"/>
-                    </g>
-                </svg>
-                Delete <span id="activeFile"></span> ?
-            </p>
-            <input name="deleteFileBtn" type="submit" value="Delete">
-        </form>
-    </section>
+            <div class="files">
+                <a>
+                    <svg version="1.1" viewBox="0 0 512 512">
+                        <g>
+                            <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
+                            <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
+                            <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
+                            <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
+                            <path fill="currentColor"
+                                d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z">
+                            </path>
+                        </g>
+                    </svg>
+                    <p>NEW</p>
+                </a>
 
-    <section class="fileDetails">
-        <div class="fileDetailsDiv">
-            <p class="welcome-head">Welcome</p>
-            <a class="close">&times;</a>
-            <table>
-                <tr><td>Name</td><td id="fileDetailsName"></td></tr>
-                <tr><td>Size</td><td id="fileDetailsSize"></td></tr>
-                <tr><td>Created</td><td id="fileDetailsCreated"></td></tr>
-                <tr><td>Accessed</td><td id="fileDetailsAccessed"></td></tr>
-                <tr><td>Modified</td><td id="fileDetailsModified"></td></tr>
-            </table>
-        </div>
-    </section>
-</main>
+                <a class="file">
+                    <svg version="1.1" viewBox="0 0 512 512">
+                        <g>
+                            <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
+                            <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
+                            <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
+                            <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
+                            <path fill="currentColor"
+                                d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z">
+                            </path>
+                        </g>
+                    </svg>
+                    <p>faisal.txt</p>
+                </a>
 
-<main class="welcome hidden">
-    <p class="welcome-head">Welcome</p>
-    <a class="close">&times;</a>
-    <div class="welcome-content">
-        <h2 style="font-weight:normal;">Mini File System</h2>
-        <p>Version 1.0.1</p>
-        <br>
-        <p>Made with &hearts; by <a href="https://faisalakhtar.github.io/" target="_blank">Faisal</a></p>
-		<div class="web">
-			<a href="https://github.com/faisalAkhtar/" target="_blank"><i class="fab fa-github"></i></a>
-			<a href="https://www.linkedin.com/in/faisallakhtarr/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-			<a href="https://www.instagram.com/faisallakhtarr/" target="_blank"><i class="fab fa-instagram"></i></a>
-			<a href="https://twitter.com/faisallakhtarr/" target="_blank"><i class="fab fa-twitter"></i></a>
-			<a href="https://www.facebook.com/faisallakhtarr/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-		</div>
-        <div class="shortcut-keys">
-            <h2>Shortcut Keys</h2>
-            <div class="row">
-                <div class="td">Open help</div>
-                <div class="td"><code>Alt + H</code></div>
-                <div class="td">Create a new file</div>
-                <div class="td"><code>Alt + N</code></div>
-            </div>
-            <div class="row">
-                <div class="td">Open selected file</div>
-                <div class="td"><code>Alt + O</code></div>
-                <div class="td">Rename selected file</div>
-                <div class="td"><code>Alt + R</code></div>
-            </div>
-            <div class="row">
-                <div class="td">Delete selected file</div>
-                <div class="td"><code>Alt + del</code></div>
-                <div class="td">Info of selected file</div>
-                <div class="td"><code>Alt + I</code></div>
-            </div>
-            <div class="row">
-                <div class="td">Save opened file</div>
-                <div class="td"><code>Alt + S</code></div>
+                <a class="file">
+                    <svg version="1.1" viewBox="0 0 512 512">
+                        <g>
+                            <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
+                            <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
+                            <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
+                            <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
+                            <path fill="currentColor"
+                                d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z">
+                            </path>
+                        </g>
+                    </svg>
+                    <p>hello.txt</p>
+                </a>
+
+                <a class="file">
+                    <svg version="1.1" viewBox="0 0 512 512">
+                        <g>
+                            <rect fill="currentColor" width="100" x="80" y="100" height="20"></rect>
+                            <rect fill="currentColor" width="100" x="80" y="160" height="20"></rect>
+                            <rect fill="currentColor" width="250" x="80" y="220" height="20"></rect>
+                            <rect fill="currentColor" width="250" x="80" y="280" height="20"></rect>
+                            <path fill="currentColor"
+                                d="m487.9,249.7c-16.3-16.3-42.7-16.3-59,0l-22.1,22.1v-112.5c0-3.1-1-5.2-3.1-7.3l-137.3-137.3c-2.1-2.1-4.2-3.1-7.3-3.1h-237.2c-6.2,0-10.4,4.2-10.4,10.4v468.1c0,6.2 4.2,10.4 10.4,10.4h374.5c6.2,0 10.4-4.2 10.4-11.4v-99.3l81.1-81.1c16.3-16.3 16.3-42.7 0-59zm-218.4-202.8l101.9,101.9h-101.9v-101.9zm116.5,432.8h-353.7v-447.3h216.4v126.9c0,6.2 4.2,10.4 10.4,10.4h126.9v122.9l-99.2,99.2-8.8,67.8 67.8-8.8 40.3-40.3v69.2zm87.2-186.1l-136.8,136.8-35,5.7 5.7-35 136.8-136.8c8.1-8.1 21.2-8.1 29.3,0 8.1,8.1 8.1,21.2 0,29.3z">
+                            </path>
+                        </g>
+                    </svg>
+                    <p>check.txt</p>
+                </a>
             </div>
         </div>
-    </div>
-</main>
-<script src="static/app.js"></script>
-<script>window.onload = function() { initializeApp() }</script>
+
+        <section class="fileEditor">
+            <form onsubmit="return saveFile(this);">
+                <input name="fileName" type="text" placeholder="Filename">
+                <input name="saveFileBtn" type="submit" value="Save">
+                <button class="close">Cancel</button>
+                <textarea name="fileCont" placeholder="Write something here..."></textarea>
+            </form>
+        </section>
+
+        <section class="fileRename">
+            <form onsubmit="return renameFile(this.fileName1.value, this.fileName2.value);">
+                <a class="close">&times;</a>
+                <input name="fileName1" type="hidden" placeholder="FROM">
+                <input name="fileName2" type="text" placeholder="New name">
+                <input name="renameFileBtn" type="submit" value="Rename">
+            </form>
+        </section>
+
+        <section class="fileDelete">
+            <form onsubmit="return deleteFile(this.fileName3.value);">
+                <a class="close">&times;</a>
+                <input name="fileName3" type="hidden" placeholder="Filename">
+                <p>
+                    <svg version="1.1" viewBox="0 0 32 32">
+                        <g fill="currentColor">
+                            <path
+                                d="M14.4242327,6.14839275 C15.2942987,4.74072976 16.707028,4.74408442 17.5750205,6.14839275 L28.3601099,23.59738 C29.5216388,25.4765951 28.6755462,27 26.4714068,27 L5.5278464,27 C3.32321557,27 2.47386317,25.4826642 3.63914331,23.59738 Z M16,20 C16.5522847,20 17,19.5469637 17,19.0029699 L17,12.9970301 C17,12.4463856 16.5561352,12 16,12 C15.4477153,12 15,12.4530363 15,12.9970301 L15,19.0029699 C15,19.5536144 15.4438648,20 16,20 Z M16,24 C16.5522848,24 17,23.5522848 17,23 C17,22.4477152 16.5522848,22 16,22 C15.4477152,22 15,22.4477152 15,23 C15,23.5522848 15.4477152,24 16,24 Z M16,24"
+                                id="Triangle 29" />
+                        </g>
+                    </svg>
+                    Delete <span id="activeFile"></span> ?
+                </p>
+                <input name="deleteFileBtn" type="submit" value="Delete">
+            </form>
+        </section>
+
+        <section class="fileDetails">
+            <div class="fileDetailsDiv">
+                <p class="welcome-head">Welcome</p>
+                <a class="close">&times;</a>
+                <table>
+                    <tr>
+                        <td>Name</td>
+                        <td id="fileDetailsName"></td>
+                    </tr>
+                    <tr>
+                        <td>Size</td>
+                        <td id="fileDetailsSize"></td>
+                    </tr>
+                    <tr>
+                        <td>Created</td>
+                        <td id="fileDetailsCreated"></td>
+                    </tr>
+                    <tr>
+                        <td>Accessed</td>
+                        <td id="fileDetailsAccessed"></td>
+                    </tr>
+                    <tr>
+                        <td>Modified</td>
+                        <td id="fileDetailsModified"></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <main class="welcome hidden">
+        <p class="welcome-head">Welcome</p>
+        <a class="close">&times;</a>
+        <div class="welcome-content">
+            <h2 style="font-weight:normal;">Mini File System</h2>
+            <p>Version 1.0.1</p>
+            <br>
+            <p>Made with &hearts; by <a href="https://faisalakhtar.github.io/" target="_blank">Faisal</a></p>
+            <div class="web">
+                <a href="https://github.com/faisalAkhtar/" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/faisallakhtarr/" target="_blank"><i
+                        class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/faisallakhtarr/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/faisallakhtarr/" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/faisallakhtarr/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <div class="shortcut-keys">
+                <h2>Shortcut Keys</h2>
+                <div class="row">
+                    <div class="td">Open help</div>
+                    <div class="td"><code>Alt + H</code></div>
+                    <div class="td">Create a new file</div>
+                    <div class="td"><code>Alt + N</code></div>
+                </div>
+                <div class="row">
+                    <div class="td">Open selected file</div>
+                    <div class="td"><code>Alt + O</code></div>
+                    <div class="td">Rename selected file</div>
+                    <div class="td"><code>Alt + R</code></div>
+                </div>
+                <div class="row">
+                    <div class="td">Delete selected file</div>
+                    <div class="td"><code>Alt + del</code></div>
+                    <div class="td">Info of selected file</div>
+                    <div class="td"><code>Alt + I</code></div>
+                </div>
+                <div class="row">
+                    <div class="td">Save opened file</div>
+                    <div class="td"><code>Alt + S</code></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="static/app.js"></script>
+    <script>window.onload = function () { initializeApp() }</script>
 </body>
+
 </html>
